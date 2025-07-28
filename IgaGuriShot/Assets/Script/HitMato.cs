@@ -8,6 +8,7 @@ public class HitMato : MonoBehaviour
     [SerializeField]
     Collider MatoCollider;
 
+    [SerializeField]
     float Point = 1000f;
 
     void Start()

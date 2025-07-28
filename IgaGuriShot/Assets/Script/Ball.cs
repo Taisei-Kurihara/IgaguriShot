@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    float speed = 1000f;
+    float speed = 20f;
+    public float Speed { get { return speed; } }
 
     Rigidbody rbdata;
     private Rigidbody rb { get { if (rbdata == null) { rbdata = GetComponent<Rigidbody>(); } return rbdata; } set { rbdata = value; } }
@@ -13,9 +14,10 @@ public class Ball : MonoBehaviour
     [SerializeField]
     ParticleSystem ps;
 
-    float deleteTime = 5f;
+    float deleteTime = 2f;
     bool delete = true;
     void CancelDelete() { delete = false; }
+    public bool Delete { get { return delete; } }
 
     async UniTask SetAsyncDelete()
     {
@@ -25,6 +27,7 @@ public class Ball : MonoBehaviour
         await UniTask.WaitUntil(() => Time.time - startTime >= deleteTime || !delete,PlayerLoopTiming.FixedUpdate, cancellationToken: token);
 
         if (delete) { Destroy(gameObject); }
+        PointManager.Instance.IntIga.Value--; // ƒ|ƒCƒ“ƒg‚ð’Ç‰Á
     }
 
 
@@ -48,11 +51,12 @@ public class Ball : MonoBehaviour
                 }
             })
             .AddTo(this);
+
     }
 
     public void SetFireDir(Vector3 dir)
     {
-        rb.AddForce(dir * speed);
+        rb.AddForce(dir * speed,ForceMode.Impulse);
 
         SetAsyncDelete().Forget();
     }

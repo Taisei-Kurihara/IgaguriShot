@@ -25,6 +25,9 @@ public class PointManager : MonoBehaviour
         }
     }
 
+    public ReactiveProperty<int> Game = new ReactiveProperty<int>(0);
+
+
     public ReactiveProperty<float> point = new ReactiveProperty<float>(0f);
 
     public float Point
@@ -41,4 +44,10 @@ public class PointManager : MonoBehaviour
         Point += value;
         Debug.Log($"Point added: {value}, Total: {Point}");
     }
+
+    public ReactiveProperty<int> IgaCount = new ReactiveProperty<int>(0);
+
+    public ReactiveProperty<int> IntIga = new ReactiveProperty<int>(0);
+
+
 }
